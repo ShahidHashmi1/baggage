@@ -1,0 +1,35 @@
+<div>
+    <h2>Golf Profiles</h2>
+    <input type="text" #nameInput placeholder="Enter Profile Name" />
+    <button (click)="addProfile(nameInput.value)">Add Profile</button>
+  
+    <ul>
+      <li *ngFor="let profile of profiles" (click)="selectProfile(profile)">
+        {{ profile.name }}
+      </li>
+    </ul>
+  
+    <div *ngIf="selectedProfile">
+      <h3>Selected Profile: {{ selectedProfile.name }}</h3>
+  
+      <h4>Add Clubs</h4>
+      <ul>
+        <li *ngFor="let club of staticClubs">
+          {{ club.name }}
+          <button (click)="addToBag(club)">Add to Bag</button>
+        </li>
+      </ul>
+  
+      <h4>Bag</h4>
+      <ul>
+        <li *ngFor="let club of selectedProfile.bag; let i = index">
+          {{ club.name }}
+          <input
+            type="number"
+            [(ngModel)]="selectedProfile.bag[i].distance"
+            (change)="updateDistance(i, selectedProfile.bag[i].distance)"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
